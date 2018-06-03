@@ -40,7 +40,8 @@
         }
         <p>List of Handlers:</p>
         @foreach (var x in ListPaths)
-        {<li><button title="@x" class="handler">@x</button></li>}
+        {<li><button title="@x" class="handler" onclick="deleteWin()">@x</button></li>}
+
     </div>
 
     <div id="Logs" class="tabcontent">
@@ -62,7 +63,6 @@
     <button class="tablink" onclick="openPage('Configuration', this, '#0579b5')">Configuration</button>
     <button class="tablink" onclick="openPage('Logs', this, '#0f7ef7')">Logs</button>
     <button class="tablink" onclick="openPage('Images', this, '#26adad')">Images</button>
-
     <style>
         /* Set height of body and the document to 100% to enable "full page tabs" */
         body, html {
@@ -72,6 +72,7 @@
             height: 80%;
             top: 0;
         }
+
         .handler {
             background-color: #81c6fa;
             color: black;
@@ -150,7 +151,20 @@
         }
         document.getElementById("defaultOpen").click();
 
-                // Get the element with id="defaultOpen" and click on it
+        // Get the element with id="defaultOpen" and click on it
+        function deleteWin() {
+            var myWindow = window.open("", "", "width=400, height=200");
+            myWindow.document.write("<h2>Are you sure you want to delete?</h2>"); 
+            myWindow.document.body.style.backgroundColor = "blue";
+            myWindow.focus();
+            myWindow.document.write("<button style='height: 50px; width: 100px; background-color:#97cfc3'>Yes</button>");
+            myWindow.document.write("<button style='height: 50px; width: 100px; background-color:#97cfc3; onclick=removeWin()'>No</button>");
+        }
+
+        function removeWin() {
+            window.close();
+        }
+
 
     </script>
 </body>
