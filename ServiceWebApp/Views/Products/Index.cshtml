@@ -1,0 +1,145 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Image Web</title>
+</head>
+<body>
+    <div id="Image Web" class="tabcontent">
+        <h3>Image Web</h3>
+        <p>Home is where the heart is..</p>
+    </div>
+
+    <div id="Configuration" class="tabcontent">
+        <h3>Configuration</h3>
+        @{
+        var outputDir = (string)ViewData["outputDir"];
+        }
+        <p>@outputDir</p>
+        @{
+        var source = (string)ViewData["source"];
+        }
+        <p>@source</p>
+        @{
+        var logName = (string)ViewData["logName"];
+        }
+        <p>@logName</p>
+        @{
+        var ThumbName = (string)ViewData["ThumbName"];
+        }
+        <p>@ThumbName</p>
+        @{
+        var ListPaths = (List<string>)ViewData["ListPaths"];
+        }
+        <p>List of Handlers:</p>
+        @foreach (var x in ListPaths) {<li>@x</li> }
+    </div>
+
+    <div id="Logs" class="tabcontent">
+        <h3>Logs</h3>
+        @{
+        var ListLogs = (List<CommandInfo>)ViewData["ListLogs"];
+        }
+        <p>List of Logs:</p>
+        @foreach (var x in ListLogs) {<li>@x</li>}
+    </div>
+
+    <div id="Images" class="tabcontent">
+        <h3>Images</h3>
+        <p>Get in touch, or swing by for a cup of coffee.</p>
+    </div>
+
+    <button class="tablink" onclick="openPage('Image Web', this, 'red')" id="defaultOpen">Image Web</button>
+    <button class="tablink" onclick="openPage('Configuration', this, 'green')">Configuration</button>
+    <button class="tablink" onclick="openPage('Logs', this, 'blue')">Logs</button>
+    <button class="tablink" onclick="openPage('Images', this, 'pink')">Images</button>
+
+    <style>
+        /* Set height of body and the document to 100% to enable "full page tabs" */
+        body, html {
+            margin: 0;
+            font-family: Arial;
+            background-color: #fae6f3;
+            height:80%;
+            top: 0;
+        }
+
+        /* Style tab links */
+        .tablink {
+            background-color: #5a0760;
+            color: white;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 17px;
+            width: 25%;
+            font: bold;
+            font-family: Calibri
+        }
+
+            .tablink:hover {
+                background-color: #cd8fea;
+            }
+
+        /* Style the tab content (and add height:100% for full page content) */
+        .tabcontent {
+            color: white;
+            display: none;
+            padding: 100px 20px;
+            height: 80%;
+            top: 0;
+        }
+
+        #Image Web {
+            background-color: red;
+        }
+
+        #Configuration {
+            background-color: green;
+        }
+
+        #Logs {
+            background-color: blue;
+        }
+
+        #Images {
+            background-color: lightpink;
+            
+        }
+    </style>
+    <script>
+        function openPage(pageName, elmnt, color) {
+            // Hide all elements with class="tabcontent" by default */
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Remove the background color of all tablinks/buttons
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+
+            // Show the specific tab content
+            document.getElementById(pageName).style.display = "block";
+
+            // Add the specific color to the button used to open the tab content
+            elmnt.style.backgroundColor = color;
+            
+        }
+        document.getElementById("defaultOpen").click();
+
+        // Get the element with id="defaultOpen" and click on it
+       
+    </script>
+</body>
+</html>
