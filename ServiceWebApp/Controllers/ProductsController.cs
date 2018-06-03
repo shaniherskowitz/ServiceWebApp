@@ -47,6 +47,7 @@ namespace ServiceWebApp.Controllers
         public ActionResult Index()
         {
             SetConfig();
+            SetLogs();
             ViewData["outputDir"] = Output;
             ViewData["source"] = Source;
             ViewData["logName"] = LogName;

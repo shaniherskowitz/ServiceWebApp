@@ -1,16 +1,18 @@
 ﻿@{
-    Layout = null;
+                /**/
+
+                Layout = null;
 }
-
+@using ServiceWebApp.Controllers;
 <!DOCTYPE html>
-
+@model ServiceWebApp.Models.Model
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Image Web</title>
 </head>
 <body>
-    <div id="Image Web" class="tabcontent">
+    <div id="ImageWeb" class="tabcontent">
         <h3>Image Web</h3>
         <p>Home is where the heart is..</p>
     </div>
@@ -18,35 +20,37 @@
     <div id="Configuration" class="tabcontent">
         <h3>Configuration</h3>
         @{
-        var outputDir = (string)ViewData["outputDir"];
+            var outputDir = (string)ViewData["outputDir"];
         }
         <p>@outputDir</p>
         @{
-        var source = (string)ViewData["source"];
+            var source = (string)ViewData["source"];
         }
         <p>@source</p>
         @{
-        var logName = (string)ViewData["logName"];
+            var logName = (string)ViewData["logName"];
         }
         <p>@logName</p>
         @{
-        var ThumbName = (string)ViewData["ThumbName"];
+            var ThumbName = (string)ViewData["ThumbName"];
         }
         <p>@ThumbName</p>
         @{
-        var ListPaths = (List<string>)ViewData["ListPaths"];
+            var ListPaths = (List<string>)ViewData["ListPaths"];
         }
         <p>List of Handlers:</p>
-        @foreach (var x in ListPaths) {<li>@x</li> }
+        @foreach (var x in ListPaths)
+        {<li><button title="@x" class="handler">@x</button></li>}
     </div>
 
     <div id="Logs" class="tabcontent">
         <h3>Logs</h3>
         @{
-        var ListLogs = (List<CommandInfo>)ViewData["ListLogs"];
+            var ListLogs = (List<CommandInfo>)ViewData["ListLogs"];
         }
         <p>List of Logs:</p>
-        @foreach (var x in ListLogs) {<li>@x</li>}
+        @foreach (var x in ListLogs)
+        {<li>@x.ID    @x.Details</li>}
     </div>
 
     <div id="Images" class="tabcontent">
@@ -54,24 +58,33 @@
         <p>Get in touch, or swing by for a cup of coffee.</p>
     </div>
 
-    <button class="tablink" onclick="openPage('Image Web', this, 'red')" id="defaultOpen">Image Web</button>
-    <button class="tablink" onclick="openPage('Configuration', this, 'green')">Configuration</button>
-    <button class="tablink" onclick="openPage('Logs', this, 'blue')">Logs</button>
-    <button class="tablink" onclick="openPage('Images', this, 'pink')">Images</button>
+    <button class="tablink" onclick="openPage('ImageWeb', this,  '#29b0e4')" id="defaultOpen">ImageWeb</button>
+    <button class="tablink" onclick="openPage('Configuration', this, '#0579b5')">Configuration</button>
+    <button class="tablink" onclick="openPage('Logs', this, '#0f7ef7')">Logs</button>
+    <button class="tablink" onclick="openPage('Images', this, '#26adad')">Images</button>
 
     <style>
         /* Set height of body and the document to 100% to enable "full page tabs" */
         body, html {
             margin: 0;
             font-family: Arial;
-            background-color: #fae6f3;
-            height:80%;
+            background-color: #85d7e9;
+            height: 80%;
             top: 0;
+        }
+        .handler {
+            background-color: #81c6fa;
+            color: black;
+            border-color: #81c6fa;
+            font-size: 15px;
+            font-family: 'Times New Roman', Times, serif;
+            width: 15%;
+            height: 25%;
         }
 
         /* Style tab links */
         .tablink {
-            background-color: #5a0760;
+            background-color: #062e6c;
             color: white;
             float: left;
             border: none;
@@ -85,7 +98,7 @@
         }
 
             .tablink:hover {
-                background-color: #cd8fea;
+                background-color: #245796;
             }
 
         /* Style the tab content (and add height:100% for full page content) */
@@ -97,21 +110,20 @@
             top: 0;
         }
 
-        #Image Web {
-            background-color: red;
+        #ImageWeb {
+            background-color: #29b0e4;
         }
 
         #Configuration {
-            background-color: green;
+            background-color: #0579b5;
         }
 
         #Logs {
-            background-color: blue;
+            background-color: #0f7ef7;
         }
 
         #Images {
-            background-color: lightpink;
-            
+            background-color: #26adad;
         }
     </style>
     <script>
@@ -134,12 +146,12 @@
 
             // Add the specific color to the button used to open the tab content
             elmnt.style.backgroundColor = color;
-            
+
         }
         document.getElementById("defaultOpen").click();
 
-        // Get the element with id="defaultOpen" and click on it
-       
+                // Get the element with id="defaultOpen" and click on it
+
     </script>
 </body>
 </html>
