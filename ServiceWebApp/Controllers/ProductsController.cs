@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -74,6 +75,7 @@ namespace ServiceWebApp.Controllers
             }
         }
 
+
         public void SetLogs()
         {
             string info = m.GetLogs();
@@ -97,6 +99,17 @@ namespace ServiceWebApp.Controllers
                     }
                 }
             }
+        }
+        [HttpPost]
+        public ActionResult RemoveHandler(string path)
+        {
+            
+            bool res = m.RemoveHandler(path);
+            var obj = new
+            {
+                valid = res
+            };
+            return Json(obj);
         }
     }
 }

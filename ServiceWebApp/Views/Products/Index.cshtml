@@ -40,7 +40,7 @@
         }
         <p>List of Handlers:</p>
         @foreach (var x in ListPaths)
-        {<li><button title="@x" class="handler" onclick="deleteWin()">@x</button></li>}
+        {<li><button title="@x" id="@x" class="handler" onclick="deleteWin(this.id)">@x</button></li>}
 
     </div>
 
@@ -152,17 +152,46 @@
         document.getElementById("defaultOpen").click();
 
         // Get the element with id="defaultOpen" and click on it
-        function deleteWin() {
+        function deleteWin(clicked_id) {
             var myWindow = window.open("", "", "width=400, height=200");
             myWindow.document.write("<h2>Are you sure you want to delete?</h2>"); 
             myWindow.document.body.style.backgroundColor = "blue";
             myWindow.focus();
-            myWindow.document.write("<button style='height: 50px; width: 100px; background-color:#97cfc3'>Yes</button>");
-            myWindow.document.write("<button style='height: 50px; width: 100px; background-color:#97cfc3; onclick=removeWin()'>No</button>");
+            var button = document.createElement('button');
+            button.style.cssText = 'height: 50px; width: 100px; background-color:#97cfc3';
+            button.innerHTML = 'No';
+            button.onclick = function () {
+                myWindow.close();
+            }
+            myWindow.document.body.appendChild(button);
+            var button2 = myWindow.document.createElement('button');
+            button2.style.cssText = 'height: 50px; width: 100px; background-color:#97cfc3';
+            button2.innerHTML = 'Yes';
+            var path = document.getElementById(clicked_id).text
+            button2.onclick = function () {
+               
+                     $.ajax({
+                         url: 'ProductsController/RemoveHandler',
+                         type: 'POST',
+                         contentType: 'application/json;',
+                         data: JSON.stringify({ path: path }),
+                        success: function ()
+                        {
+                            alert("yay");
+                         }
+                        
+                     });
+                alert("yay");
+            }
+            myWindow.document.body.appendChild(button2);
+        
+            
         }
 
-        function removeWin() {
-            window.close();
+   
+        function removeWin(mywindow) {
+            var w = window(mywindow) ;
+            
         }
 
 

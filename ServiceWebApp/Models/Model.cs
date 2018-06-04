@@ -30,5 +30,12 @@ namespace ServiceWebApp.Models
             string info = c.WriteConnection("2");
             return info;
         }
+
+        public bool RemoveHandler(string path)
+        {
+            string result = c.WriteConnection("5, " + path);
+            if (result.Equals("2" + path)) return true;
+            return false;
+        }
     }
 }
