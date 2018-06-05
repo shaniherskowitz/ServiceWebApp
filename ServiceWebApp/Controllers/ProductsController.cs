@@ -47,14 +47,32 @@ namespace ServiceWebApp.Controllers
         // GET: Products
         public ActionResult Index()
         {
+           
+            return View();
+        }
+
+        public ActionResult Config()
+        {
             SetConfig();
-            SetLogs();
             ViewData["outputDir"] = Output;
             ViewData["source"] = Source;
             ViewData["logName"] = LogName;
             ViewData["ThumbName"] = ThumbName;
             ViewData["ListPaths"] = ListPaths;
+           
+            return View();
+        }
+
+        public ActionResult Logs()
+        {
+            SetLogs();
             ViewData["ListLogs"] = ListCommands;
+            return View();
+        }
+
+        public ActionResult Images()
+        {
+            
             return View();
         }
 

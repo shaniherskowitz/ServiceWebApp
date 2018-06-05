@@ -1,0 +1,32 @@
+﻿@model ServiceWebApp.Models.Model
+
+@{
+    ViewBag.Title = "Logs";
+}
+
+@using ServiceWebApp.Controllers;
+<body id="Logs" class="tabcontent">
+    <h3>Logs</h3>
+    @{
+        var ListLogs = (List<CommandInfo>)ViewData["ListLogs"];
+    }
+    <p>List of Logs:</p>
+    @foreach (var x in ListLogs)
+    {<li>@x.ID    @x.Details</li>}
+</body>
+
+
+<style>
+    .handler {
+        background-color: #81c6fa;
+        color: black;
+        border-color: #81c6fa;
+        font-size: 15px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .tabcontent {
+        color: white;
+        background-color: black;
+    }
+</style>

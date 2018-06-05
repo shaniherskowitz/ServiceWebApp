@@ -1,0 +1,94 @@
+﻿@model ServiceWebApp.Models.Model
+
+@{
+    ViewBag.Title = "Config";
+}
+<header title="Configuration" class="title">Configurations</header>
+    
+<body class="tabcontent">
+    @{
+        var outputDir = (string)ViewData["outputDir"];
+    }
+    <p>@outputDir</p>
+    @{
+        var source = (string)ViewData["source"];
+    }
+    <p>@source</p>
+    @{
+        var logName = (string)ViewData["logName"];
+    }
+    <p>@logName</p>
+    @{
+        var ThumbName = (string)ViewData["ThumbName"];
+    }
+    <p>@ThumbName</p>
+    @{
+        var ListPaths = (List<string>)ViewData["ListPaths"];
+    }
+    <p>List of Handlers:</p>
+    @foreach (var x in ListPaths)
+    // {<li><button title="@x" id="@x" class="handler" onclick="deleteWin(this.id)">@x</button></li>}
+    {
+    <li class="handler">
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">@x</button>
+
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">@x</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete handler?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </li>
+    }
+
+</body>
+
+<style>
+    .modal-content {
+        color:#001198;
+        background-color:#88c8ed;
+        font-family: 'Courier New'
+    }
+    .btn {
+        color: #001198;
+        font-family: 'Courier New'
+    }
+    .modal-title {
+        color: #001198;
+        font-family: 'Courier New'
+    }
+    .handler {
+        padding: 20px 20px;
+    }
+
+    .title {
+        color: #a5dded;
+        font-size: 40px;
+        background-color: black;
+        font-family: 'Courier New';
+        font-weight: bold;
+        padding: 30px 0px 0px 0px;
+    }
+    .tabcontent {
+        color: #a5dded;
+        font-size: 25px;
+        background-color: black;
+        font-family: 'Courier New';
+    }
+</style>
+

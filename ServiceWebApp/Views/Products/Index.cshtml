@@ -1,200 +1,40 @@
 ﻿@{
-                /**/
-
-                Layout = null;
+    ViewBag.Title = "Home Page";
 }
-@using ServiceWebApp.Controllers;
-<!DOCTYPE html>
-@model ServiceWebApp.Models.Model
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Image Web</title>
-</head>
-<body>
-    <div id="ImageWeb" class="tabcontent">
-        <h3>Image Web</h3>
-        <p>Home is where the heart is..</p>
-    </div>
-
-    <div id="Configuration" class="tabcontent">
-        <h3>Configuration</h3>
-        @{
-            var outputDir = (string)ViewData["outputDir"];
-        }
-        <p>@outputDir</p>
-        @{
-            var source = (string)ViewData["source"];
-        }
-        <p>@source</p>
-        @{
-            var logName = (string)ViewData["logName"];
-        }
-        <p>@logName</p>
-        @{
-            var ThumbName = (string)ViewData["ThumbName"];
-        }
-        <p>@ThumbName</p>
-        @{
-            var ListPaths = (List<string>)ViewData["ListPaths"];
-        }
-        <p>List of Handlers:</p>
-        @foreach (var x in ListPaths)
-        {<li><button title="@x" id="@x" class="handler" onclick="deleteWin(this.id)">@x</button></li>}
-
-    </div>
-
-    <div id="Logs" class="tabcontent">
-        <h3>Logs</h3>
-        @{
-            var ListLogs = (List<CommandInfo>)ViewData["ListLogs"];
-        }
-        <p>List of Logs:</p>
-        @foreach (var x in ListLogs)
-        {<li>@x.ID    @x.Details</li>}
-    </div>
-
-    <div id="Images" class="tabcontent">
-        <h3>Images</h3>
-        <p>Get in touch, or swing by for a cup of coffee.</p>
-    </div>
-
-    <button class="tablink" onclick="openPage('ImageWeb', this,  '#29b0e4')" id="defaultOpen">ImageWeb</button>
-    <button class="tablink" onclick="openPage('Configuration', this, '#0579b5')">Configuration</button>
-    <button class="tablink" onclick="openPage('Logs', this, '#0f7ef7')">Logs</button>
-    <button class="tablink" onclick="openPage('Images', this, '#26adad')">Images</button>
-    <style>
-        /* Set height of body and the document to 100% to enable "full page tabs" */
-        body, html {
-            margin: 0;
-            font-family: Arial;
-            background-color: #85d7e9;
-            height: 80%;
-            top: 0;
-        }
-
-        .handler {
-            background-color: #81c6fa;
-            color: black;
-            border-color: #81c6fa;
-            font-size: 15px;
-            font-family: 'Times New Roman', Times, serif;
-            width: 15%;
-            height: 25%;
-        }
-
-        /* Style tab links */
-        .tablink {
-            background-color: #062e6c;
-            color: white;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            font-size: 17px;
-            width: 25%;
-            font: bold;
-            font-family: Calibri
-        }
-
-            .tablink:hover {
-                background-color: #245796;
-            }
-
-        /* Style the tab content (and add height:100% for full page content) */
-        .tabcontent {
-            color: white;
-            display: none;
-            padding: 100px 20px;
-            height: 80%;
-            top: 0;
-        }
-
-        #ImageWeb {
-            background-color: #29b0e4;
-        }
-
-        #Configuration {
-            background-color: #0579b5;
-        }
-
-        #Logs {
-            background-color: #0f7ef7;
-        }
-
-        #Images {
-            background-color: #26adad;
-        }
-    </style>
-    <script>
-        function openPage(pageName, elmnt, color) {
-            // Hide all elements with class="tabcontent" by default */
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-
-            // Remove the background color of all tablinks/buttons
-            tablinks = document.getElementsByClassName("tablink");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].style.backgroundColor = "";
-            }
-
-            // Show the specific tab content
-            document.getElementById(pageName).style.display = "block";
-
-            // Add the specific color to the button used to open the tab content
-            elmnt.style.backgroundColor = color;
-
-        }
-        document.getElementById("defaultOpen").click();
-
-        // Get the element with id="defaultOpen" and click on it
-        function deleteWin(clicked_id) {
-            var myWindow = window.open("", "", "width=400, height=200");
-            myWindow.document.write("<h2>Are you sure you want to delete?</h2>"); 
-            myWindow.document.body.style.backgroundColor = "blue";
-            myWindow.focus();
-            var button = document.createElement('button');
-            button.style.cssText = 'height: 50px; width: 100px; background-color:#97cfc3';
-            button.innerHTML = 'No';
-            button.onclick = function () {
-                myWindow.close();
-            }
-            myWindow.document.body.appendChild(button);
-            var button2 = myWindow.document.createElement('button');
-            button2.style.cssText = 'height: 50px; width: 100px; background-color:#97cfc3';
-            button2.innerHTML = 'Yes';
-            var path = document.getElementById(clicked_id).text
-            button2.onclick = function () {
-               
-                     $.ajax({
-                         url: 'ProductsController/RemoveHandler',
-                         type: 'POST',
-                         contentType: 'application/json;',
-                         data: JSON.stringify({ path: path }),
-                        success: function ()
-                        {
-                            alert("yay");
-                         }
-                        
-                     });
-                alert("yay");
-            }
-            myWindow.document.body.appendChild(button2);
-        
-            
-        }
-
-   
-        function removeWin(mywindow) {
-            var w = window(mywindow) ;
-            
-        }
-
-
-    </script>
+<header class="title">Students:</header>
+<body id="ImageWeb" class="tabcontent">
+ 
+    <h1><span class="label label-default">Name: Abby Album, Id: 340907138</span></h1>
+    <h1><span class="label label-default">Name: Shani Herskowitz, Id: 321658387</span></h1>
+  
 </body>
-</html>
+
+
+<style>
+    .handler {
+        background-color: #81c6fa;
+        color: black;
+        border-color: #81c6fa;
+        font-size: 15px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .label {
+        background-color: #035167;
+        color: #a5dded;
+    }
+
+    .tabcontent {
+        color: white;
+        background-color: black;
+        font-family:'Courier New';
+        font-size:25pt;
+    }
+    .title {
+        color: #a5dded;
+        font-size: 40px;
+        background-color: black;
+        font-family: 'Courier New';
+        font-weight: bold;
+        padding: 30px 0px 0px 0px;
+    }
+</style>
