@@ -44,6 +44,7 @@ namespace ServiceWebApp.Controllers
         IList<string> ListPaths = new List<string>();
         private object lockObj = new object();
         public IList<CommandInfo> ListCommands = new List<CommandInfo>();
+        public IList<string> images = new List<string>();
         // GET: Products
         public ActionResult Index()
         {
@@ -72,7 +73,9 @@ namespace ServiceWebApp.Controllers
 
         public ActionResult Images()
         {
-            
+            setImage();
+            ViewData["ImageList"] = images;
+
             return View();
         }
 
@@ -93,6 +96,10 @@ namespace ServiceWebApp.Controllers
             }
         }
 
+        public void setImage()
+        {
+            images = m.GetImage();
+        }
 
         public void SetLogs()
         {
