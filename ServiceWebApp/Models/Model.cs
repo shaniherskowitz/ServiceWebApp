@@ -44,13 +44,14 @@ namespace ServiceWebApp.Models
         {
             char sep_char = Path.DirectorySeparatorChar;
             IList<string> MyImgList = new List<string>();
-            string YourDir = @"C:\Users\IEUser\source\repos\ServiceWebApp\ServiceWebApp\hi\";
+            string YourDir = @"C:\Users\IEUser\source\repos\ServiceWebApp\ServiceWebApp\OutputDir\";
             DirectoryInfo di = new DirectoryInfo(YourDir);
             var images = Directory.GetFiles(YourDir, "*.jpg", SearchOption.AllDirectories);
             foreach (string file in images)
             {
+                string file2 = file.Replace(@"C:\Users\IEUser\source\repos\ServiceWebApp\ServiceWebApp\", @"~\");
                 //Image i = Image.FromFile(file);
-                MyImgList.Add(file);
+                MyImgList.Add(file2);
             }
             return MyImgList;
         }
