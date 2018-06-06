@@ -33,7 +33,7 @@ namespace ServiceWebApp.Controllers
         }
     }
 
-
+    [RoutePrefix("Products")]
     public class ProductsController : Controller
     {
         Model m = new Model();
@@ -118,7 +118,7 @@ namespace ServiceWebApp.Controllers
                 }
             }
         }
-        [HttpPost]
+        
         public ActionResult RemoveHandler(string path)
         {
             
@@ -129,5 +129,6 @@ namespace ServiceWebApp.Controllers
             };
             return Json(obj);
         }
+      
     }
 }

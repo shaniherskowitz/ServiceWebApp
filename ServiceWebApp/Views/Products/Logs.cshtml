@@ -5,28 +5,92 @@
 }
 
 @using ServiceWebApp.Controllers;
-<body id="Logs" class="tabcontent">
-    <h3>Logs</h3>
-    @{
+
+
+    <body id="Logs" class="tabcontent">
+        @{
         var ListLogs = (List<CommandInfo>)ViewData["ListLogs"];
-    }
-    <p>List of Logs:</p>
-    @foreach (var x in ListLogs)
-    {<li>@x.ID    @x.Details</li>}
-</body>
+        }
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search types..">
+
+        <table id="myTable">
+            <tr class="header">
+                <th style="width:60%;">Type</th>
+                <th style="width:40%;">Message</th>
+            </tr>
+            @foreach (var x in ListLogs)
+    {
+        <tr class="info">
+            <td>@x.ID</td>
+            <td>@x.Details</td>
+        </tr>
+}
+        </table>
+    </body>
+    </html>
 
 
-<style>
-    .handler {
-        background-color: #81c6fa;
-        color: black;
-        border-color: #81c6fa;
-        font-size: 15px;
-        font-family: 'Times New Roman', Times, serif;
-    }
+    <style>
 
-    .tabcontent {
-        color: white;
-        background-color: black;
-    }
-</style>
+
+        .tabcontent {
+            color: #a5dded;
+            background-color: black;
+        }
+        #myInput {
+            background-position: 10px 12px; /* Position the search icon */
+            font-size: 16px; /* Increase font-size */
+            height:16px;
+            width: 300px;
+            padding: 10px 20px 12px 40px; /* Add some padding */
+            border: 1px solid #ddd; /* Add a grey border */
+            margin-bottom: 12px; /* Add some space below the input */
+            margin-top: 30px;
+            font-family:'Courier New';
+        }
+
+        #myTable {
+            border-collapse: collapse; /* Collapse borders */
+            width: 100%; /* Full-width */
+            border: 1px solid #ddd; /* Add a grey border */
+            font-size: 18px; /* Increase font-size */
+            font-family:'Courier New';
+        }
+
+            #myTable th, #myTable td {
+                text-align: left; /* Left-align text */
+                padding: 12px; /* Add padding */
+            }
+
+            #myTable tr {
+                /* Add a bottom border to all table rows */
+                border-bottom: 1px solid #ddd;
+            }
+
+            #myTable tr.header, #myTable tr:hover {
+               /* Add a grey background color to the table header and on hover */
+               background-color: #00384d;
+           }
+    </style>
+<script>
+function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
