@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -134,7 +135,7 @@ namespace ServiceWebApp.Controllers
             {
                 valid = res
             };
-            return Json(obj);
+            return View();
         }
       
     }

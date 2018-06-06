@@ -100,6 +100,10 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="hi\Lighthouse.jpg" />
+    <Content Include="hi\Penguins.jpg" />
+    <Content Include="hi\s.jpg" />
+    <Content Include="hi\s1.jpg" />
     <Content Include="js\bootstrap.bundle.js" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\bootstrap.js" />
@@ -107,6 +111,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Lighthouse.thumb" />
+    <Content Include="hi\Penguins.thumb" />
+    <Content Include="hi\s.thumb" />
+    <Content Include="hi\s1.thumb" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -35,22 +36,24 @@ namespace ServiceWebApp.Models
         public bool RemoveHandler(string path)
         {
             string result = c.WriteConnection("5, " + path);
-            if (result.Equals("2" + path)) return true;
+            if (result.Equals("2 " + path)) return true;
             return false;
         }
 
         public IList<string> GetImage()
         {
             char sep_char = Path.DirectorySeparatorChar;
-            List<string> MyImgList = new List<string>();
-            string YourDir = "C:" + sep_char + "Users" + sep_char + "IEUser" + sep_char + "Desktop" + sep_char + "OutputDir ";
+            IList<string> MyImgList = new List<string>();
+            string YourDir = @"C:\Users\IEUser\source\repos\ServiceWebApp\ServiceWebApp\hi\";
             DirectoryInfo di = new DirectoryInfo(YourDir);
-            var images = Directory.GetFiles(YourDir, "*.thumb", SearchOption.AllDirectories);
+            var images = Directory.GetFiles(YourDir, "*.jpg", SearchOption.AllDirectories);
             foreach (string file in images)
             {
+                //Image i = Image.FromFile(file);
                 MyImgList.Add(file);
             }
             return MyImgList;
         }
     }
+    //"C:" + sep_char + "Users" + sep_char + "IEUser" + sep_char + "Desktop" + sep_char + "OutputDir ";
 }
