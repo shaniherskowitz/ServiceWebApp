@@ -163,6 +163,9 @@
     <Content Include="Views\Products\Config.cshtml" />
     <Content Include="Views\Products\Logs.cshtml" />
     <Content Include="Views\Products\Images.cshtml" />
+    <Content Include="Views\Products\ShowImage.cshtml" />
+    <Content Include="Views\Products\DeleteImg.cshtml" />
+    <Content Include="Views\Products\RemoveHandlerOther.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

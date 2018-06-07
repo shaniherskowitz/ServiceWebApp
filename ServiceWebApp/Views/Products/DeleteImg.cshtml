@@ -1,0 +1,39 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "DeleteImg";
+}
+<body class="tabcontent">
+    <h2>Are you sure you want to delete:</h2>
+
+    @{
+        var path = (string)ViewData["path"];
+    }
+    @{
+        var date = (string)ViewData["date"];
+    }
+    @{
+        var name = (string)ViewData["name"];
+    }
+    <a href="#">@Html.ActionLink("Delete", "Images", new { path = path }, new { @class = "btn btn-info btn-xs" })</a>   <a href="#">@Html.ActionLink("Cancel", "Images", null, new { @class = "btn btn-info btn-xs" })</a>
+    
+    @if (@path != null)
+    {<div class="col-xs-18 col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <img src="@Url.Content(path)" alt="@name" />
+            </div>
+        </div>
+    }
+    <h1>@name</h1>
+    <h2>@date</h2>
+</body>
+
+<style>
+    .tabcontent {
+        color: #a5dded;
+        font-size: 25px;
+        background-color: black;
+        font-family: 'Courier New';
+    }
+</style>

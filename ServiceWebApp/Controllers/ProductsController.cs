@@ -94,6 +94,33 @@ namespace ServiceWebApp.Controllers
            
             return View();
         }
+        public ActionResult ShowImage(string img, string path, string name)
+        {
+            ViewData["path"] = path;
+            ViewData["date"] = img;
+            ViewData["name"] = name;
+
+            return View();
+        }
+
+        public ActionResult RemoveHandlerOther(string path)
+        {
+            ViewData["path"] = path;
+            return View();
+        }
+
+        public ActionResult GoBack()
+        {
+            return RedirectToAction("Config", new { load = false });
+        }
+
+        public ActionResult DeleteImg(string img, string path, string name)
+        {
+            ViewData["path"] = path;
+            ViewData["date"] = img;
+            ViewData["name"] = name;
+            return View();
+        }
 
         public ActionResult Logs()
         {

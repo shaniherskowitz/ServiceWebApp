@@ -34,7 +34,7 @@
                     <h1>@x.Name</h1>
                     <h4>@x.image</h4>
                     <p></p>
-                    <p><a href="@Url.Content(x.Path)" class="btn btn-info btn-xs" role="button">View</a> <a href="#">@Html.ActionLink("Delete", "Images", new { path = x.Path }, new { @class = "btn btn-info btn-xs" })</a></p>
+                    <p><a href="#">@Html.ActionLink("View", "ShowImage", new { img = x.image, path = x.Path, name = x.Name }, new { @class = "btn btn-info btn-xs" })</a> <a href="#">@Html.ActionLink("Delete", "DeleteImg", new { img = x.image, path = x.Path, name = x.Name }, new { @class = "btn btn-info btn-xs" })</a></p>
                 </div>
             </div>
         </div>}

@@ -1,0 +1,34 @@
+﻿@model ServiceWebApp.Models.Model
+
+@{
+    ViewBag.Title = "ShowImage";
+}
+<body class="tabcontent">
+    @{
+        var path = (string)ViewData["path"];
+    }
+    @{
+        var date = (string)ViewData["date"];
+    }
+    @{
+        var name = (string)ViewData["name"];
+    }
+    @if (@path != null)
+    {
+        <div class="thumbnail">
+            <img src="@Url.Content(path)" alt="@name" />
+        </div>
+     }
+     <h1>@name</h1>
+     <h2>@date</h2>
+      <p><a href="#">@Html.ActionLink("Delete", "Images", new { path = path }, new { @class = "btn btn-info btn-xs" })</a></p>
+
+    </body>
+<style>
+    .tabcontent {
+        color: #a5dded;
+        font-size: 25px;
+        background-color: black;
+        font-family: 'Courier New';
+    }
+</style>

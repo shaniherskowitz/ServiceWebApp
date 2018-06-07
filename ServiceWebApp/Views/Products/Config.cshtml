@@ -1,7 +1,9 @@
 ﻿@model ServiceWebApp.Models.Model
 
 @{
-    ViewBag.Title = "Config";
+                /**/
+
+                ViewBag.Title = "Config";
 }
 @using ServiceWebApp.Controllers;
 
@@ -29,34 +31,12 @@
     }
     <p>List of Handlers:</p>
     @foreach (var x in ListPaths)
-    // {<li><button title="@x" id="@x" class="handler" onclick="deleteWin(this.id)">@x</button></li>}
     {
         <li class="handler">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">@x</button>
+
+            <a href="#">@Html.ActionLink(@x, "RemoveHandlerOther", new { path = x })</a>
 
 
-            <div id="myModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">@x</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Are you sure you want to delete handler?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <a href="#">@Html.ActionLink("Yes", "RemoveHandler", new { path = x }, new { onclick = "disable()", id = "mylink" , @class = "btn btn-default" })</a>
-
-
-</div>
-                    </div>
-
-                </div>
-            </div>
         </li>
     }
 
@@ -68,11 +48,12 @@
         background-color: #88c8ed;
         font-family: 'Courier New'
     }
+
     .ok {
         background-color: white;
         color: #001198;
         font-family: 'Courier New';
-        font-size:10pt;
+        font-size: 10pt;
     }
 
     .btn {
@@ -110,14 +91,14 @@
 
     function disable() {
         document.getElementById("cancel").disabled = true;
-        document.getElementById("mylink").disabled= true;
+        document.getElementById("mylink").disabled = true;
         return false;
     }
-    
+
     $('.btn').click(function () {
-            document.getElementById("cancel").disabled = true;
-            document.getElementById("ok").disabled = true;
-        
+        document.getElementById("cancel").disabled = true;
+        document.getElementById("ok").disabled = true;
+
     })
     function removeHandler(path) {
 
