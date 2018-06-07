@@ -43,11 +43,13 @@ namespace ServiceWebApp.Controllers
     {
         public string Path{ get; set; }
         public string image { get; set; }
+        public string Name { get; set; }
 
-        public ImageInfo(string pth, string img)
+        public ImageInfo(string pth, string img, string name)
         {
             Path = pth;
             image = img;
+            Name = name;
         }
     }
 
@@ -145,7 +147,8 @@ namespace ServiceWebApp.Controllers
                 string file2 = pic.Replace(@"C:\Users\IEUser\source\repos\ServiceWebApp\ServiceWebApp\", @"~\");
                 DateTime dt = GetDateTakenFromImage(pic);
                 string date = dt.Month.ToString() + "/" + dt.Year.ToString();
-                images.Add(new ImageInfo(file2, date));
+                string name = Path.GetFileNameWithoutExtension(pic);
+                images.Add(new ImageInfo(file2, date, name));
 
             }
            
