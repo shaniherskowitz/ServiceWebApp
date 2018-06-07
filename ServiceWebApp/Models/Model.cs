@@ -49,9 +49,9 @@ namespace ServiceWebApp.Models
             var images = Directory.GetFiles(YourDir, "*.jpg", SearchOption.AllDirectories);
             foreach (string file in images)
             {
-                string file2 = file.Replace(@"C:\Users\IEUser\source\repos\ServiceWebApp\ServiceWebApp\", @"~\");
+                
                 //Image i = Image.FromFile(file);
-                MyImgList.Add(file2);
+                MyImgList.Add(file);
             }
             return MyImgList;
         }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using ServiceWebApp.Models;
@@ -33,19 +36,34 @@ namespace ServiceWebApp.Controllers
             Details = details;
         }
     }
+    /// <summary>
+    /// Creates the ImageInfo
+    /// </summary>
+    public class ImageInfo
+    {
+        public string Path{ get; set; }
+        public string image { get; set; }
+
+        public ImageInfo(string pth, string img)
+        {
+            Path = pth;
+            image = img;
+        }
+    }
 
     [RoutePrefix("Products")]
     public class ProductsController : Controller
     {
         Model m = new Model();
-        string Output = "Output Directory: ";
-        string Source = "Source Name: ";
-        string LogName = "Log Name: ";
-        string ThumbName = "Thumbnail Name: ";
-        IList<string> ListPaths = new List<string>();
+        static string Output = "Output Directory: ";
+        static string Source = "Source Name: ";
+        static string LogName = "Log Name: ";
+        static string ThumbName = "Thumbnail Name: ";
+        static IList<string> ListPaths = new List<string>();
         private object lockObj = new object();
         public IList<CommandInfo> ListCommands = new List<CommandInfo>();
-        public IList<string> images = new List<string>();
+        public IList<ImageInfo> images = new List<ImageInfo>();
+       
         // GET: Products
         public ActionResult Index()
         {
@@ -53,14 +71,16 @@ namespace ServiceWebApp.Controllers
             return View();
         }
 
-        public ActionResult Config()
+        public ActionResult Config(bool load = true)
         {
-            SetConfig();
-            ViewData["outputDir"] = Output;
-            ViewData["source"] = Source;
-            ViewData["logName"] = LogName;
-            ViewData["ThumbName"] = ThumbName;
-            ViewData["ListPaths"] = ListPaths;
+            
+                SetConfig(load);
+                ViewData["outputDir"] = Output;
+                ViewData["source"] = Source;
+                ViewData["logName"] = LogName;
+                ViewData["ThumbName"] = ThumbName;
+                ViewData["ListPaths"] = ListPaths;
+            
            
             return View();
         }
@@ -72,19 +92,31 @@ namespace ServiceWebApp.Controllers
             return View();
         }
 
-        public ActionResult Images()
+        public ActionResult Images(string path)
         {
+            if (path != null)
+            {
+                this.RemoveImage(path);
+            }
             setImage();
             ViewData["ImageList"] = images;
 
             return View();
         }
 
+        public void RemoveImage(string path)
+        {
 
-        public void SetConfig()
+            String paths = Server.MapPath(path);
+
+            if (System.IO.File.Exists(paths)) { System.IO.File.Delete(paths); }
+
+        }
+
+        public void SetConfig(bool load)
         {
             IList<string> eachPath = m.GetConfig();
-            if (eachPath.Count == 5)
+            if (load && eachPath.Count == 5)
             {
                 Output = Output + eachPath[4];
                 Source = Source + eachPath[3];
@@ -99,7 +131,36 @@ namespace ServiceWebApp.Controllers
 
         public void setImage()
         {
-            images = m.GetImage();
+            IList<string> img = m.GetImage();
+            foreach (string pic in img)
+            {
+                string file2 = pic.Replace(@"C:\Users\IEUser\source\repos\ServiceWebApp\ServiceWebApp\", @"~\");
+                DateTime dt = GetDateTakenFromImage(pic);
+                string date = dt.Month.ToString() + "/" + dt.Year.ToString();
+                images.Add(new ImageInfo(file2, date));
+
+            }
+           
+        }
+        private static Regex r = new Regex(":");
+        /// </summary>
+        public static DateTime GetDateTakenFromImage(string path)
+        {
+            try
+            {
+                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                using (Image myImage = Image.FromStream(fs, false, false))
+                {
+                    PropertyItem propItem = myImage.GetPropertyItem(36867);
+                    string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
+                    
+                    return DateTime.Parse(dateTaken);
+                }
+            }
+            catch (Exception)
+            {
+                return new DateTime();
+            }
         }
 
         public void SetLogs()
@@ -126,16 +187,16 @@ namespace ServiceWebApp.Controllers
                 }
             }
         }
-        
+       
         public ActionResult RemoveHandler(string path)
         {
             
             bool res = m.RemoveHandler(path);
-            var obj = new
+            if (res)
             {
-                valid = res
-            };
-            return View();
+                ListPaths.Remove(path);
+            }
+            return RedirectToAction("Config", new { load = false });
         }
       
     }
