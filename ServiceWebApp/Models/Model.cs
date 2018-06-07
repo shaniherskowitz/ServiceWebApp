@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.ServiceProcess;
 using System.Web;
 using ServiceWebApp.connection;
 
@@ -38,6 +40,19 @@ namespace ServiceWebApp.Models
             string result = c.WriteConnection("5, " + path);
             if (result.Equals("2 " + path)) return true;
             return false;
+        }
+
+        public bool isRunning()
+        {
+            try
+            {
+                using (ServiceController sc = new ServiceController("ImageService"))
+                {
+                    return sc.Status == ServiceControllerStatus.Running;
+                }
+            }
+            catch (ArgumentException) { return false; }
+            catch (Win32Exception) { return false; }
         }
 
         public IList<string> GetImage()

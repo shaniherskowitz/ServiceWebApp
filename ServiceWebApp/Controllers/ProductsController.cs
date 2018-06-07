@@ -67,7 +67,15 @@ namespace ServiceWebApp.Controllers
         // GET: Products
         public ActionResult Index()
         {
-           
+            if (m.isRunning())
+            {
+                ViewData["running"] = "Yes";
+
+            }
+            else ViewData["running"] = "No";
+
+            IList<string> img = m.GetImage();
+            ViewData["num"] = img.Count.ToString();
             return View();
         }
 

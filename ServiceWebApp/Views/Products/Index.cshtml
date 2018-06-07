@@ -1,12 +1,19 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<header class="title">Students:</header>
+<header class="title">Image Web:</header>
 <body id="ImageWeb" class="tabcontent">
- 
+
     <h1><span class="label label-default">Name: Abby Album, Id: 340907138</span></h1>
     <h1><span class="label label-default">Name: Shani Herskowitz, Id: 321658387</span></h1>
-  
+    @{
+        var run = (string)ViewData["running"];
+    }
+    <h1><span class="label label-default">Service Running: @run</span></h1>
+    @{
+        var num = (string)ViewData["num"];
+    }
+    <h1><span class="label label-default">Number of pictures in outputdir: @num</span></h1>
 </body>
 
 
