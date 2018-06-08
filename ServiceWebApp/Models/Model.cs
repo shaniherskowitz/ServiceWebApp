@@ -14,14 +14,18 @@ namespace ServiceWebApp.Models
     {
         Connect c = Connect.Instance;
 
+        /// <summary>
+        /// Creates the model
+        /// </summary>
         public Model()
         {
 
-
-
-
         }
 
+        /// <summary>
+        /// Sets the configuration from the service
+        /// </summary>
+        /// <return List of strings - info of config></return>
         public IList<string> GetConfig()
         {
             string set = c.WriteConnection("1");
@@ -29,12 +33,21 @@ namespace ServiceWebApp.Models
 
         }
 
+        /// <summary>
+        /// Gets the logs from the service
+        /// </summary>
+        /// <return list of log info></return>
         public string GetLogs()
         {
             string info = c.WriteConnection("2");
             return info;
         }
 
+        /// <summary>
+        /// Removes the hanlder from the service 
+        /// </summary>
+        /// <param string="path"></param>
+        /// <return bool - false or true></return>
         public bool RemoveHandler(string path)
         {
             string result = c.WriteConnection("5, " + path);
@@ -42,6 +55,10 @@ namespace ServiceWebApp.Models
             return false;
         }
 
+        /// <summary>
+        /// Sees if the service is running 
+        /// </summary>
+        /// <return bool false or true></return>
         public bool isRunning()
         {
             try
@@ -55,6 +72,10 @@ namespace ServiceWebApp.Models
             catch (Win32Exception) { return false; }
         }
 
+        /// <summary>
+        /// Gets the images from the folder
+        /// </summary>
+        /// <return a list of the paths of the images></return>
         public IList<string> GetImage()
         {
             char sep_char = Path.DirectorySeparatorChar;
@@ -64,12 +85,9 @@ namespace ServiceWebApp.Models
             var images = Directory.GetFiles(YourDir, "*.jpg", SearchOption.AllDirectories);
             foreach (string file in images)
             {
-                
-                //Image i = Image.FromFile(file);
                 MyImgList.Add(file);
             }
             return MyImgList;
         }
     }
-    //"C:" + sep_char + "Users" + sep_char + "IEUser" + sep_char + "Desktop" + sep_char + "OutputDir ";
 }

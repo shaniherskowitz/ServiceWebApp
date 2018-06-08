@@ -9,6 +9,10 @@ namespace ServiceWebApp
 {
     public class RouteConfig
     {
+        /// <summary>
+        /// Creates the route
+        /// </summary>
+        /// <param RouteCollection="routes"></param>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

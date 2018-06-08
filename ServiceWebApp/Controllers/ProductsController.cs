@@ -45,6 +45,13 @@ namespace ServiceWebApp.Controllers
         public string image { get; set; }
         public string Name { get; set; }
 
+
+        /// <summary>
+        /// Gets the image info
+        /// </summary>
+        /// <param string="pth"></param>
+        /// <param string="img"></param>
+        /// <param string="name"></param>
         public ImageInfo(string pth, string img, string name)
         {
             Path = pth;
@@ -53,6 +60,9 @@ namespace ServiceWebApp.Controllers
         }
     }
 
+    /// <summary>
+    /// Creates the product controller
+    /// </summary>
     [RoutePrefix("Products")]
     public class ProductsController : Controller
     {
@@ -65,7 +75,11 @@ namespace ServiceWebApp.Controllers
         private object lockObj = new object();
         public IList<CommandInfo> ListCommands = new List<CommandInfo>();
         public IList<ImageInfo> images = new List<ImageInfo>();
-       
+
+        /// <summary>
+        /// For the webimage view
+        /// </summary>
+        /// <return web image view></return>
         // GET: Products
         public ActionResult Index()
         {
@@ -81,6 +95,11 @@ namespace ServiceWebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// For the config view
+        /// </summary>
+        /// <param bool="load"></param>
+        /// <return config view></return>
         public ActionResult Config(bool load = true)
         {
             
@@ -94,6 +113,15 @@ namespace ServiceWebApp.Controllers
            
             return View();
         }
+
+
+        /// <summary>
+        /// Shows the image
+        /// </summary>
+        /// <param string="pth"></param>
+        /// <param string="img"></param>
+        /// <param string="name"></param>
+        /// <return image view></return>
         public ActionResult ShowImage(string img, string path, string name)
         {
             ViewData["path"] = path;
@@ -103,17 +131,33 @@ namespace ServiceWebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Shows delete handler view
+        /// </summary>
+        /// <param string="path"></param>
+        /// <return remove handler view></return>
         public ActionResult RemoveHandlerOther(string path)
         {
             ViewData["path"] = path;
             return View();
         }
 
+        /// <summary>
+        /// Goes back to the config view
+        /// </summary>
+        /// <return  config view></return>
         public ActionResult GoBack()
         {
             return RedirectToAction("Config", new { load = false });
         }
 
+        /// <summary>
+        /// Delete the image view
+        /// </summary>
+        /// <param string="pth"></param>
+        /// <param string="img"></param>
+        /// <param string="name"></param>
+        /// <return deleet image view></return>
         public ActionResult DeleteImg(string img, string path, string name)
         {
             ViewData["path"] = path;
@@ -122,6 +166,10 @@ namespace ServiceWebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Shows the log view
+        /// </summary>
+        /// <return log view></return>
         public ActionResult Logs()
         {
             SetLogs();
@@ -129,6 +177,11 @@ namespace ServiceWebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Shows the image view
+        /// </summary>
+        /// <param string="path"></param>
+        /// <return image view></return>
         public ActionResult Images(string path)
         {
             if (path != null)
@@ -141,6 +194,10 @@ namespace ServiceWebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Removes the image
+        /// </summary>
+        /// <param string="path"></param>
         public void RemoveImage(string path)
         {
 
@@ -150,6 +207,10 @@ namespace ServiceWebApp.Controllers
 
         }
 
+        /// <summary>
+        /// Sets the configuration
+        /// </summary>
+        /// <param bool="load"></param>
         public void SetConfig(bool load)
         {
             IList<string> eachPath = m.GetConfig();
@@ -166,6 +227,9 @@ namespace ServiceWebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Sets the images
+        /// </summary>
         public void setImage()
         {
             IList<string> img = m.GetImage();
@@ -181,7 +245,12 @@ namespace ServiceWebApp.Controllers
            
         }
         private static Regex r = new Regex(":");
+
+        /// <summary>
+        /// Date and time of the images
         /// </summary>
+        /// <param string="path"></param>
+        /// <return date and time></return>
         public static DateTime GetDateTakenFromImage(string path)
         {
             try
@@ -200,7 +269,9 @@ namespace ServiceWebApp.Controllers
                 return new DateTime();
             }
         }
-
+        /// <summary>
+        /// Sets the logs, gets them from the model - service
+        /// </summary>
         public void SetLogs()
         {
             string info = m.GetLogs();
@@ -222,9 +293,14 @@ namespace ServiceWebApp.Controllers
                         if (x == (int)MessageTypeEnum.WARNING)
                             ListCommands.Add(new CommandInfo(MessageTypeEnum.WARNING.ToString(), each[0]));
                     }
-                }
+                } /// <summary>
+        /// Removes the handlers
+        /// </summary>
+        /// <param string="path"></param>
+        /// <return remove handler view></return>
             }
         }
+
        
         public ActionResult RemoveHandler(string path)
         {

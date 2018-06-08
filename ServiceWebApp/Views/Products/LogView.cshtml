@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "LogView";
+}
+
+<h2>LogView</h2>
+@using ServiceWebApp.Controllers;
+<!DOCTYPE html>
+@model ServiceWebApp.Models.Model
+<html>
+<body>
+
+    <div id="Logs" class="tabcontent">
+        <h3>Logs</h3>
+        @{
+            var ListLogs = (List<CommandInfo>)ViewData["ListLogs"];
+        }
+        <p>List of Logs:</p>
+        @foreach (var x in ListLogs)
+        {<li>@x.ID    @x.Details</li>}
+    </div>
+
+    <button class="tablink" onclick="openPage('Logs', this, '#0f7ef7')">Logs</button>
+    <style>
+        /* Set height of body and the document to 100% to enable "full page tabs" */
+        body, html {
+            margin: 0;
+            font-family: Arial;
+            background-color: #85d7e9;
+            height: 80%;
+            top: 0;
+        }
+        /* Style tab links */
+        .tablink {
+            background-color: #062e6c;
+            color: white;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 17px;
+            width: 25%;
+            font: bold;
+            font-family: Calibri
+        }
+
+            .tablink:hover {
+                background-color: #245796;
+            }
+
+        /* Style the tab content (and add height:100% for full page content) */
+        .tabcontent {
+            color: white;
+            display: none;
+            padding: 100px 20px;
+            height: 80%;
+            top: 0;
+        }
+
+        #Logs {
+            background-color: #0f7ef7;
+        }
+    </style>
+    <script>
+        function openPage(pageName, elmnt, color) {
+            // Hide all elements with class="tabcontent" by default */
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Remove the background color of all tablinks/buttons
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+
+            // Show the specific tab content
+            document.getElementById(pageName).style.display = "block";
+
+            // Add the specific color to the button used to open the tab content
+            elmnt.style.backgroundColor = color;
+
+        }
+        document.getElementById("defaultOpen").click();
+       
+
+    </script>
+</body>
+</html>
